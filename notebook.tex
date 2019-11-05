@@ -1,0 +1,1941 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{hw6-charrnn-Update20190524}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{string}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{torch}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn} \PY{k}{as} \PY{n+nn}{nn}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    \hypertarget{prepare-for-dataset}{%
+\paragraph{Prepare for Dataset}\label{prepare-for-dataset}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{all\PYZus{}chars}       \PY{o}{=} \PY{n}{string}\PY{o}{.}\PY{n}{printable}
+        \PY{n}{n\PYZus{}chars}         \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}chars}\PY{p}{)}
+        \PY{n}{file}            \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./shakespeare.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+        \PY{n}{file\PYZus{}len}        \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{file}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length of file: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{file\PYZus{}len}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{All possible characters: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{all\PYZus{}chars}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of all possible characters: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{n\PYZus{}chars}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Length of file: 1115394
+All possible characters: 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"\#\$\%\&'()*+,-./:;<=>?@[\textbackslash{}]\^{}\_`\{|\}\textasciitilde{} 	
+
+Number of all possible characters: 100
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Get a random sequence of the Shakespeare dataset.}
+        \PY{k}{def} \PY{n+nf}{get\PYZus{}random\PYZus{}seq}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{seq\PYZus{}len}     \PY{o}{=} \PY{l+m+mi}{128}  \PY{c+c1}{\PYZsh{} The length of an input sequence.}
+            \PY{n}{start\PYZus{}index} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{file\PYZus{}len} \PY{o}{\PYZhy{}} \PY{n}{seq\PYZus{}len}\PY{p}{)}
+            \PY{n}{end\PYZus{}index}   \PY{o}{=} \PY{n}{start\PYZus{}index} \PY{o}{+} \PY{n}{seq\PYZus{}len} \PY{o}{+} \PY{l+m+mi}{1}
+            \PY{k}{return} \PY{n}{file}\PY{p}{[}\PY{n}{start\PYZus{}index}\PY{p}{:}\PY{n}{end\PYZus{}index}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Convert the sequence to one\PYZhy{}hot tensor.}
+        \PY{k}{def} \PY{n+nf}{seq\PYZus{}to\PYZus{}onehot}\PY{p}{(}\PY{n}{seq}\PY{p}{)}\PY{p}{:}
+            \PY{n}{tensor} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{seq}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n\PYZus{}chars}\PY{p}{)} 
+            \PY{c+c1}{\PYZsh{} Shape of the tensor:}
+            \PY{c+c1}{\PYZsh{}     (sequence length, batch size, classes)}
+            \PY{c+c1}{\PYZsh{} Here we use batch size = 1 and classes = number of unique characters.}
+            \PY{k}{for} \PY{n}{t}\PY{p}{,} \PY{n}{char} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{seq}\PY{p}{)}\PY{p}{:}
+                \PY{n}{index} \PY{o}{=} \PY{n}{all\PYZus{}chars}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n}{char}\PY{p}{)}
+                \PY{n}{tensor}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+            \PY{k}{return} \PY{n}{tensor}
+        
+        \PY{c+c1}{\PYZsh{} Convert the sequence to index tensor.}
+        \PY{k}{def} \PY{n+nf}{seq\PYZus{}to\PYZus{}index}\PY{p}{(}\PY{n}{seq}\PY{p}{)}\PY{p}{:}
+            \PY{n}{tensor} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{seq}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} Shape of the tensor: }
+            \PY{c+c1}{\PYZsh{}     (sequence length, batch size).}
+            \PY{c+c1}{\PYZsh{} Here we use batch size = 1.}
+            \PY{k}{for} \PY{n}{t}\PY{p}{,} \PY{n}{char} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{seq}\PY{p}{)}\PY{p}{:}
+                \PY{n}{tensor}\PY{p}{[}\PY{n}{t}\PY{p}{]} \PY{o}{=} \PY{n}{all\PYZus{}chars}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n}{char}\PY{p}{)}
+            \PY{k}{return} \PY{n}{tensor}
+        
+        \PY{c+c1}{\PYZsh{} Sample a mini\PYZhy{}batch including input tensor and target tensor.}
+        \PY{k}{def} \PY{n+nf}{get\PYZus{}input\PYZus{}and\PYZus{}target}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{seq}    \PY{o}{=} \PY{n}{get\PYZus{}random\PYZus{}seq}\PY{p}{(}\PY{p}{)}
+            \PY{n+nb}{input}  \PY{o}{=} \PY{n}{seq\PYZus{}to\PYZus{}onehot}\PY{p}{(}\PY{n}{seq}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}      \PY{c+c1}{\PYZsh{} Input is represented in one\PYZhy{}hot.}
+            \PY{n}{target} \PY{o}{=} \PY{n}{seq\PYZus{}to\PYZus{}index}\PY{p}{(}\PY{n}{seq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{long}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Target is represented in index.}
+            \PY{k}{return} \PY{n+nb}{input}\PY{p}{,} \PY{n}{target}
+\end{Verbatim}
+
+
+    \hypertarget{choose-a-device}{%
+\paragraph{Choose a Device}\label{choose-a-device}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} If there are GPUs, choose the first one for computing. Otherwise use CPU.}
+        \PY{n}{device} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{device}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cuda:0}\PY{l+s+s2}{\PYZdq{}} \PY{k}{if} \PY{n}{torch}\PY{o}{.}\PY{n}{cuda}\PY{o}{.}\PY{n}{is\PYZus{}available}\PY{p}{(}\PY{p}{)} \PY{k}{else} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cpu}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{device}\PY{p}{)}  
+        \PY{c+c1}{\PYZsh{} If \PYZsq{}cuda:0\PYZsq{} is printed, it means GPU is available.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+cpu
+
+    \end{Verbatim}
+
+    \hypertarget{network-definition}{%
+\paragraph{Network Definition}\label{network-definition}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{class} \PY{n+nc}{Net}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} Initialization.}
+                \PY{n+nb}{super}\PY{p}{(}\PY{n}{Net}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{input\PYZus{}size}  \PY{o}{=} \PY{n}{n\PYZus{}chars}   \PY{c+c1}{\PYZsh{} Input size: Number of unique chars.}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hidden\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{100}       \PY{c+c1}{\PYZsh{} Hidden size: 100.}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}size} \PY{o}{=} \PY{n}{n\PYZus{}chars}   \PY{c+c1}{\PYZsh{} Output size: Number of unique chars.}
+                
+                \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} To be filled \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+                \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} To be filled \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cell} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{RNNCell}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{input\PYZus{}size}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hidden\PYZus{}size}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{linear} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}size}\PY{p}{)}
+            
+            \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n+nb}{input}\PY{p}{,} \PY{n}{hidden}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Forward function.}
+        \PY{l+s+sd}{              input:  One\PYZhy{}hot input. It refers to the x\PYZus{}t in homework write\PYZhy{}up.}
+        \PY{l+s+sd}{              hidden: Previous hidden state. It refers to the h\PYZus{}\PYZob{}t\PYZhy{}1\PYZcb{}.}
+        \PY{l+s+sd}{            Returns (output, hidden) where output refers to y\PYZus{}t and }
+        \PY{l+s+sd}{                     hidden refers to h\PYZus{}t.}
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{c+c1}{\PYZsh{} Forward function.}
+                \PY{n}{hidden} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cell}\PY{p}{(}\PY{n+nb}{input}\PY{p}{,} \PY{n}{hidden}\PY{p}{)}
+                \PY{n}{output} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{linear}\PY{p}{(}\PY{n}{hidden}\PY{p}{)}
+        
+                \PY{k}{return} \PY{n}{output}\PY{p}{,} \PY{n}{hidden}
+        
+            \PY{k}{def} \PY{n+nf}{init\PYZus{}hidden}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} Initial hidden state.}
+                \PY{c+c1}{\PYZsh{} 1 means batch size = 1.}
+                \PY{k}{return} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hidden\PYZus{}size}\PY{p}{)}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)} 
+            
+        \PY{n}{net} \PY{o}{=} \PY{n}{Net}\PY{p}{(}\PY{p}{)}     \PY{c+c1}{\PYZsh{} Create the network instance.}
+        \PY{n}{net}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Move the network parameters to the specified device.}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} Net(
+          (cell): RNNCell(100, 100)
+          (linear): Linear(in\_features=100, out\_features=100, bias=True)
+        )
+\end{Verbatim}
+            
+    \hypertarget{training-step-and-evaluation-step}{%
+\paragraph{Training Step and Evaluation
+Step}\label{training-step-and-evaluation-step}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Training step function.}
+        \PY{k}{def} \PY{n+nf}{train\PYZus{}step}\PY{p}{(}\PY{n}{net}\PY{p}{,} \PY{n}{opt}\PY{p}{,} \PY{n+nb}{input}\PY{p}{,} \PY{n}{target}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Training step.}
+        \PY{l+s+sd}{        net:    The network instance.}
+        \PY{l+s+sd}{        opt:    The optimizer instance.}
+        \PY{l+s+sd}{        input:  Input tensor.  Shape: [seq\PYZus{}len, 1, n\PYZus{}chars].}
+        \PY{l+s+sd}{        target: Target tensor. Shape: [seq\PYZus{}len, 1].}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{seq\PYZus{}len} \PY{o}{=} \PY{n+nb}{input}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}    \PY{c+c1}{\PYZsh{} Get the sequence length of current input.}
+            \PY{n}{hidden} \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{init\PYZus{}hidden}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Initial hidden state.}
+            \PY{n}{net}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}             \PY{c+c1}{\PYZsh{} Clear the gradient.}
+            \PY{n}{loss} \PY{o}{=} \PY{l+m+mi}{0}                    \PY{c+c1}{\PYZsh{} Initial loss.}
+        
+            \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{seq\PYZus{}len}\PY{p}{)}\PY{p}{:}    \PY{c+c1}{\PYZsh{} For each one in the input sequence.}
+                \PY{n}{output}\PY{p}{,} \PY{n}{hidden} \PY{o}{=} \PY{n}{net}\PY{p}{(}\PY{n+nb}{input}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{,} \PY{n}{hidden}\PY{p}{)}
+                \PY{n}{loss} \PY{o}{+}\PY{o}{=} \PY{n}{loss\PYZus{}func}\PY{p}{(}\PY{n}{output}\PY{p}{,} \PY{n}{target}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{)}
+        
+            \PY{n}{loss}\PY{o}{.}\PY{n}{backward}\PY{p}{(}\PY{p}{)}             \PY{c+c1}{\PYZsh{} Backward. }
+            \PY{n}{opt}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{p}{)}                  \PY{c+c1}{\PYZsh{} Update the weights.}
+        
+            \PY{k}{return} \PY{n}{loss} \PY{o}{/} \PY{n}{seq\PYZus{}len}       \PY{c+c1}{\PYZsh{} Return the average loss w.r.t sequence length.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Evaluation step function.}
+        \PY{k}{def} \PY{n+nf}{eval\PYZus{}step}\PY{p}{(}\PY{n}{net}\PY{p}{,} \PY{n}{init\PYZus{}seq}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{predicted\PYZus{}len}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Initialize the hidden state, input and the predicted sequence.}
+            \PY{n}{hidden}        \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{init\PYZus{}hidden}\PY{p}{(}\PY{p}{)}
+            \PY{n}{init\PYZus{}input}    \PY{o}{=} \PY{n}{seq\PYZus{}to\PYZus{}onehot}\PY{p}{(}\PY{n}{init\PYZus{}seq}\PY{p}{)}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+            \PY{n}{predicted\PYZus{}seq} \PY{o}{=} \PY{n}{init\PYZus{}seq}
+        
+            \PY{c+c1}{\PYZsh{} Use initial string to \PYZdq{}build up\PYZdq{} hidden state.}
+            \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{init\PYZus{}seq}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{n}{output}\PY{p}{,} \PY{n}{hidden} \PY{o}{=} \PY{n}{net}\PY{p}{(}\PY{n}{init\PYZus{}input}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{,} \PY{n}{hidden}\PY{p}{)}
+                
+            \PY{c+c1}{\PYZsh{} Set current input as the last character of the initial string.}
+            \PY{n+nb}{input} \PY{o}{=} \PY{n}{init\PYZus{}input}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+            
+            \PY{c+c1}{\PYZsh{} Predict more characters after the initial string.}
+            \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{predicted\PYZus{}len}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} Get the current output and hidden state.}
+                \PY{n}{output}\PY{p}{,} \PY{n}{hidden} \PY{o}{=} \PY{n}{net}\PY{p}{(}\PY{n+nb}{input}\PY{p}{,} \PY{n}{hidden}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} Sample from the output as a multinomial distribution.}
+                \PY{n}{predicted\PYZus{}index} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{multinomial}\PY{p}{(}\PY{n}{output}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                
+                \PY{c+c1}{\PYZsh{} Add predicted character to the sequence and use it as next input.}
+                \PY{n}{predicted\PYZus{}char}  \PY{o}{=} \PY{n}{all\PYZus{}chars}\PY{p}{[}\PY{n}{predicted\PYZus{}index}\PY{p}{]}
+                \PY{n}{predicted\PYZus{}seq}  \PY{o}{+}\PY{o}{=} \PY{n}{predicted\PYZus{}char}
+                
+                \PY{c+c1}{\PYZsh{} Use the predicted character to generate the input of next round.}
+                \PY{n+nb}{input} \PY{o}{=} \PY{n}{seq\PYZus{}to\PYZus{}onehot}\PY{p}{(}\PY{n}{predicted\PYZus{}char}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+        
+            \PY{k}{return} \PY{n}{predicted\PYZus{}seq}
+\end{Verbatim}
+
+
+    \hypertarget{training-procedure}{%
+\paragraph{Training Procedure}\label{training-procedure}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Number of iterations.}
+        \PY{n}{iters}       \PY{o}{=} \PY{l+m+mi}{20000}  \PY{c+c1}{\PYZsh{} Number of training iterations.}
+        \PY{n}{print\PYZus{}iters} \PY{o}{=} \PY{l+m+mi}{100}    \PY{c+c1}{\PYZsh{} Number of iterations for each log printing.}
+        
+        \PY{c+c1}{\PYZsh{} The loss variables.}
+        \PY{n}{all\PYZus{}losses} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{loss\PYZus{}sum}   \PY{o}{=} \PY{l+m+mi}{0}
+        
+        \PY{c+c1}{\PYZsh{} Initialize the optimizer and the loss function.}
+        \PY{n}{opt}       \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{optim}\PY{o}{.}\PY{n}{Adam}\PY{p}{(}\PY{n}{net}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.005}\PY{p}{)}
+        \PY{n}{loss\PYZus{}func} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{CrossEntropyLoss}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Training procedure.}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{iters}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{input}\PY{p}{,} \PY{n}{target} \PY{o}{=} \PY{n}{get\PYZus{}input\PYZus{}and\PYZus{}target}\PY{p}{(}\PY{p}{)}            \PY{c+c1}{\PYZsh{} Fetch input and target.}
+            \PY{n+nb}{input}\PY{p}{,} \PY{n}{target} \PY{o}{=} \PY{n+nb}{input}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}\PY{p}{,} \PY{n}{target}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)} \PY{c+c1}{\PYZsh{} Move to GPU memory.}
+            \PY{n}{loss}      \PY{o}{=} \PY{n}{train\PYZus{}step}\PY{p}{(}\PY{n}{net}\PY{p}{,} \PY{n}{opt}\PY{p}{,} \PY{n+nb}{input}\PY{p}{,} \PY{n}{target}\PY{p}{)}   \PY{c+c1}{\PYZsh{} Calculate the loss.}
+            \PY{n}{loss\PYZus{}sum} \PY{o}{+}\PY{o}{=} \PY{n}{loss}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}                           \PY{c+c1}{\PYZsh{} Accumulate the loss.}
+        
+            \PY{c+c1}{\PYZsh{} Print the log.}
+            \PY{k}{if} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{n}{print\PYZus{}iters} \PY{o}{==} \PY{n}{print\PYZus{}iters} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iter:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{/}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ loss:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{iters}\PY{p}{,} \PY{n}{loss\PYZus{}sum} \PY{o}{/} \PY{n}{print\PYZus{}iters}\PY{p}{)}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{generated sequence: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{eval\PYZus{}step}\PY{p}{(}\PY{n}{net}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                      
+                \PY{c+c1}{\PYZsh{} Track the loss.}
+                \PY{n}{all\PYZus{}losses}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{loss\PYZus{}sum} \PY{o}{/} \PY{n}{print\PYZus{}iters}\PY{p}{)}
+                \PY{n}{loss\PYZus{}sum} \PY{o}{=} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+iter:99/20000 loss:3.2779043102264405
+generated sequence: W[at nHdre ahAl  ootoCYulf Ilk Mal EA
+lie biru o; ovufictoCow-onmuua
+f  hUtRA'Ireutb.ar sorn .en 
+ofy
+
+iter:199/20000 loss:2.7162825894355773
+generated sequence: Wlt anathyoot purdot mAuUYABCEMAEEWKIWETTESTRFIP:
+GWEBAWisttyRNFWRGKEAASKHAA:
+PAalKrs wome btofogeen
+
+iter:299/20000 loss:2.466833002567291
+generated sequence: Whall bna sher we fan thet ea khe thee gs le des fof e, whe; of mo'd.
+CPeas afrenos.
+Woure the r ther
+
+iter:399/20000 loss:2.4115343117713928
+generated sequence: Were, afdabs.
+
+ARDLIS:
+But y
+bedhe wath afiuc bh lais care foom?
+
+AvIOMIMT IYLH:
+I:
+Thoul wsy urhel t
+
+iter:499/20000 loss:2.3308454847335813
+generated sequence: WING Iged.
+
+VIOSE's eby samy!?
+ALere hy wis in with ind omat, be IV:
+And a wowbel im 't loud best, pi
+
+iter:599/20000 loss:2.2952981662750243
+generated sequence: Whing of enen ceaf or this te ang op, ardes arr ''ve thas comed in thicf elkege wiTh ar, co,
+And in!
+
+
+iter:699/20000 loss:2.244503618478775
+generated sequence: WULARUA:
+Oce ot Rithis of Wiystres sond be bibpebsence qheiCNot of
+INy:
+Ty thutherst iivid :
+Whe alfi
+
+iter:799/20000 loss:2.2171934831142424
+generated sequence: Witer, hour
+Nor myous And in.
+
+KISIL:
+Clat th nny harca
+T, tht thang freinoun bur furct!
+Thes,
+Wive, 
+
+iter:899/20000 loss:2.1898067581653593
+generated sequence: Whice pear plitns of thdalces,
+And ape shasr thin.
+
+ALES:
+Iof che wit sece, youce, Gor se peref cr li
+
+iter:999/20000 loss:2.1763956689834596
+generated sequence: W:
+You mary gareen:
+Ale pray la douth hangentu,
+
+I worrunstofece hard co
+pet what huckegy ain, tarinr
+
+iter:1099/20000 loss:2.132967028617859
+generated sequence: When bood igrore thin, erds loge arichell me alt reiplittee loines the, the son ute st rratile houlde
+
+iter:1199/20000 loss:2.1121287322044373
+generated sequence: Whe af all paink.
+
+PFalfr:
+You doon alo than prook
+
+Taris.
+
+SUF YFAY:
+Sherk you tott of on the surt, 
+
+iter:1299/20000 loss:2.13149041056633
+generated sequence: Whad sfay no blone lloukzen muskm yor mnckent arick, and.
+My laglvakee Comghed of is nitsdener. be th
+
+iter:1399/20000 loss:2.0927574360370635
+generated sequence: Wher, inoling quveno fortons with to eaie.
+
+PRINCSSTIO:
+Ay. Haw so nathis, Will If llir,
+Wher siming 
+
+iter:1499/20000 loss:2.0903733706474306
+generated sequence: Wremmid? spemad?
+
+KIICY:
+Lenwee sp out in seect Sisind, therr my home cour, I welnd my
+O.
+
+AUCELAF IF
+
+iter:1599/20000 loss:2.0803171300888064
+generated sequence: Wy have repr wIth that thou wich havesl; the und of wear.
+
+CLOUSENCO:
+Thack aill
+Pradten.
+
+POrher-He 
+
+iter:1699/20000 loss:2.0660691130161286
+generated sequence: WAST Ppren! your gine'd sing yoe wo dove me ridso miseriting thes, ou ir why tors! We Gjook, Deart, t
+
+iter:1799/20000 loss:2.046997127532959
+generated sequence: WI mare thas id amery segfinged,
+This seal heren autare,
+Ard secuyturnot ohe wart lain's we we hin de
+
+iter:1899/20000 loss:2.0741380512714387
+generated sequence: With firh!
+Leps ble cingaceers age weient the lige weer you, fat:
+Leget whits' mame the hould woold a
+
+iter:1999/20000 loss:2.0130217552185057
+generated sequence: Whis a gaatec?
+
+JURINTER:
+Vart sheat leem, to sour and de calving save tall
+Ed.
+
+SAMELIO:
+Thing. Noth
+
+iter:2099/20000 loss:2.047080569267273
+generated sequence: WAURWARCSIOLANGS:
+Rarnown to you consane, anlatce
+Theredsepus ofld
+, ive
+AF hear; in werp your thelat
+
+iter:2199/20000 loss:2.0063497042655944
+generated sequence: W one ony the benelly y.
+What daus my coard o provans! how atare to and deme not us the 'good
+Crown,
+
+
+iter:2299/20000 loss:2.003691418170929
+generated sequence: Wh thy wispeld.
+
+Pewers,
+And to ces-on my sse end he to fore.
+
+GLEDET:
+Now not renty lood thr inceous
+
+iter:2399/20000 loss:2.0000656712055207
+generated sequence: Well;
+lod think a coonges, ind sthing coring wach fare is wisch, groull:
+jutht you. le.
+
+LADUI:
+My ar
+
+iter:2499/20000 loss:2.0161244463920593
+generated sequence: Wis, cootore,
+po hate not our a nacel, my resentry wad me, trous of thas to is cous! brotere hoble at
+
+iter:2599/20000 loss:1.9964705657958985
+generated sequence: W is ear?
+
+JOLIZARION
+O:
+O, whiceal,
+All,
+How me, it ole arciked man but unceak not that desile You, 
+
+iter:2699/20000 loss:1.9824309432506562
+generated sequence: WARD II:
+I wne-flood gurst.
+
+GLOUCESTER:
+Take:
+s tleghtonour than atuoy on by Boh
+
+iter:2799/20000 loss:1.9770614075660706
+generated sequence: Will Why ding kinbret the give of chere's O chmanter lopr thithery not lepert. Itpraus he jommy
+Sw th
+
+iter:2899/20000 loss:1.9366482079029084
+generated sequence: Witer.
+
+HORKENTES:
+BINamed hask noptrongue witlets, as gead, you mart you, lloken it the send in the 
+
+iter:2999/20000 loss:1.9648270082473756
+generated sequence: Whamby, no sonent reanon my cooker coppexped evor mey prochious so my: ase
+Frows tome thin eve dove d
+
+iter:3099/20000 loss:1.9606619119644164
+generated sequence: Woust and that's homer of buther stiand lack the drinest frow? whag, go,,
+Wort thinks
+Master, my enea
+
+iter:3199/20000 loss:1.9923720562458038
+generated sequence: Whee.
+
+JULADWARD:
+Come heme thamker
+Deem to surde he sulnle may dased
+Is with Belingle geath thane he
+
+iter:3299/20000 loss:1.9363084709644318
+generated sequence: Wert they;
+Having ware whath, bud; gy do greent what gwalcele.
+Wark.
+
+PETRUCES:
+Hambing.
+
+ELRUCESDIO:
+
+iter:3399/20000 loss:1.9684564590454101
+generated sequence: W.
+Whan te prowers
+you have my him of hee in one you of mion, dol holling thekreatt im no endy
+Take o
+
+iter:3499/20000 loss:1.9418647289276123
+generated sequence: Wes wrat, i'
+Thoush of they dauphed uponds, an ig not resoodds wen sindoher scatcul navence borgsggel
+
+iter:3599/20000 loss:1.9518865478038787
+generated sequence: With:
+Singcraws, missep them shat shele you are Jull me.
+
+BRETIUS:
+Lentable.
+
+Smevenst.
+
+fase o'ke to
+
+iter:3699/20000 loss:1.9392053008079528
+generated sequence: Werd, not to much me, 'vichatt:
+For hould.
+Bughtily a tweet fimpord
+Man; the you, watlie;
+But my lifp
+
+iter:3799/20000 loss:1.9543274116516114
+generated sequence: Werd, seker, filloust of ans you and from and feire almence:
+That I do conthan With sid,, s minier.
+
+
+
+iter:3899/20000 loss:1.9243276178836823
+generated sequence: With shy hars with conful, I, hach requeang seeph
+dest exfoor lend sfaid our forres chast appess herp
+
+iter:3999/20000 loss:1.9344694244861602
+generated sequence: Welles for.
+
+ENEM:
+I the nomearen youret in the lays but you revedwell.
+
+DUCHERSSGA:
+Mad IDir.
+
+HENRY
+
+iter:4099/20000 loss:1.93375257730484
+generated sequence: W:
+Alver which'd shan weield thisair it is bo, it with me with thay with tincruther by a to as!
+
+MERC
+
+iter:4199/20000 loss:1.9526091635227203
+generated sequence: Whis a tond lenrther his morem, hear fill that hapes, and
+Weay, of this lame cows with, Anam kno stre
+
+iter:4299/20000 loss:1.9286394035816192
+generated sequence: WI whail how! our grithes
+lirglrefaath is that I ksain gailnds delecher rawe:
+O, goosh, and Rich and 
+
+iter:4399/20000 loss:1.9281468093395233
+generated sequence: Whis thoulds love.
+
+HURBII:
+When thee this that wine of to dree,
+Prity o to and thy shy.
+
+ISTAUMII:
+M
+
+iter:4499/20000 loss:1.8767272007465363
+generated sequence: Wat he discresy gellment humest lord seathey unul: nesel' the munt me leved mery corse lese, good bes
+
+iter:4599/20000 loss:1.9316619503498078
+generated sequence: With usirs it has my indrick's hersor loves day, with thy gears, Corled roding and for she, than
+You 
+
+iter:4699/20000 loss:1.8947563481330871
+generated sequence: WARTIO:
+My rroul?
+
+ARINIUS:
+To hip ring hel divanguls if thou fade stong erong bear thy towllpul thou
+
+iter:4799/20000 loss:1.899105806350708
+generated sequence: WAUD IV:
+I old I likes that yoursh see bernsed deithan the vains and dilied; bin my with thee of om C
+
+iter:4899/20000 loss:1.871817284822464
+generated sequence: Wanl wiadmines.
+
+DUCEET"s:
+Myon them air beed be
+rain then thete werrem paszabs of fast no to the kid
+
+iter:4999/20000 loss:1.9183683967590333
+generated sequence: WhRCETHEM
+ETUMEN:
+Goe by the feertirn is whom with I liet.
+
+CORIOLERSWARD NARINIS:
+She coust breck if
+
+iter:5099/20000 loss:1.9513774299621582
+generated sequence: Wisherved conkigh anfore ol hold foothilf oth omhes, an ou! hoobloth, would,
+Thish lify are, hear,
+Wh
+
+iter:5199/20000 loss:1.9110789895057678
+generated sequence: Wan this surcen!
+The pruear.
+Y the time,
+Bathingbea pees on my kingeice is quarre; my parening, unrea
+
+iter:5299/20000 loss:1.9099401891231538
+generated sequence: Whers an all greatim no?
+
+DUKE EDWARD HESTENUCHER
+ARY:
+And to him in the geacer in the ereanite alt n
+
+iter:5399/20000 loss:1.892505122423172
+generated sequence: WARD IVIA:
+I at?
+
+
+DONEB:
+Vour pally stealle: and to this fille is a fold, thir breace for bil, him t
+
+iter:5499/20000 loss:1.8664890825748444
+generated sequence: We-Cignevere
+theres irtarn otheadost so live.
+
+ESCADUS:
+To preal, to gavenger agmusscame you do Cecwi
+
+iter:5599/20000 loss:1.958506360054016
+generated sequence: WARD MARE:
+Yether barggieat and noy a mand doding may.
+Siven if to kierce, te's hazit,
+Leks Corrurt c
+
+iter:5699/20000 loss:1.8692400538921357
+generated sequence: Westred,
+Frvice, will mustle?
+
+Ffit I't my hear:
+Would,
+Rore moin thine he true tyolr more feave:
+Tut
+
+iter:5799/20000 loss:1.8771151173114777
+generated sequence: WifUd.
+Rome the we's frue hond
+Thesels to soved nimath,
+Seem.
+
+JULIET:
+Yey humsilys, fire this?
+
+WARG
+
+iter:5899/20000 loss:1.9233075821399688
+generated sequence: What soveng of in shorm; thousen difplesess and sake mands,
+Wilirmed mes with ich's neap nanmor Bath 
+
+iter:5999/20000 loss:1.8691017532348633
+generated sequence: With the siron'd canders, Lords; lotedper that mory he prope, with the sponded now
+And on mangit yane
+
+iter:6099/20000 loss:1.857094283103943
+generated sequence: Werd Mead! thit to a nay a
+Dietile---temantion!
+
+PRONIO:
+My son, in Cliffer.
+
+LAREN:
+Hiset
+A difal! w
+
+iter:6199/20000 loss:1.8590101170539857
+generated sequence: WINr Pame hend the woplencatu take, yet, as
+I sway'd anp.
+Math a mistent laubhe, cer:
+For y muse with
+
+iter:6299/20000 loss:1.9146742570400237
+generated sequence: Whithereforrabrte, is tread the frill,
+And and do home bone not my and at he wall neight you hert I w
+
+iter:6399/20000 loss:1.8678795409202575
+generated sequence: Why cen then is deed-s your you, than so?
+Mow, good'd gentlraveer'd bloy not draus'd may would to we 
+
+iter:6499/20000 loss:1.873079820871353
+generated sequence: Whith eded,
+My here hardy mang, freep do his sours no thy lord,
+I frad's icorour arm a froth sesse
+My
+
+iter:6599/20000 loss:1.8810945332050324
+generated sequence: Wht.
+
+DUKE OF AUPELST:
+Shall chaugh your
+O, my hather. 
+Day not ms despipns
+!
+MERCKENR EDYONDELLO:
+Fo
+
+iter:6699/20000 loss:1.8896431291103364
+generated sequence: Why do huths leaft;
+And and sinet loventert gracesher'd the quacterd; who leaw thee to surott his a o
+
+iter:6799/20000 loss:1.8604278409481048
+generated sequence: WhtI daspien you has so nle thy gain of Noff you, mire evereach aigran.
+
+COMINIUGERO:
+Oy thay, is arf
+
+iter:6899/20000 loss:1.88529048204422
+generated sequence: Wat whin you donesciied my cable and I worderem.
+Where, that?
+
+BRWARD:
+So, sit him she wo and, Boword
+
+iter:6999/20000 loss:1.8302150642871857
+generated sequence: Wat! not uncounderiunce.
+
+KING: Ou?
+Wancand
+Ayble hoh for for promp, piorty uncange trumaty,?
+To have
+
+iter:7099/20000 loss:1.8720702517032624
+generated sequence: We:
+This puetle good chart, my comphiely frey: that if.
+
+Shepher:
+For gizek of that a fair starty, wh
+
+iter:7199/20000 loss:1.8328164422512054
+generated sequence: Whilb:
+
+LERPETO:
+Yous Jumblet ow out whall low!.
+
+HORTANGS:'
+not poor dumsing
+Thon Peel that much par
+
+iter:7299/20000 loss:1.8429439103603362
+generated sequence: Were there strown we ware seabres'st in Butsest
+Sire a lord--
+Feall:
+So pabge deabys to thather say w
+
+iter:7399/20000 loss:1.8808650243282319
+generated sequence: Werw, the deadestent of me!
+Bow steove mine tinit?
+Wewt under
+Alds, with unce, by that to I boderd, m
+
+iter:7499/20000 loss:1.8378377032279969
+generated sequence: WhRWY Gud
+Ty so some good not'sh him plaide
+to the gendy
+me hear not them math larvenge here--
+liRome
+
+iter:7599/20000 loss:1.8710020911693572
+generated sequence: WARU EDSTA:
+
+GLOUCESTER:
+Go wirtlo,
+AN herence himsel of his; this thore fif of'
+Parce len stand As a
+
+iter:7699/20000 loss:1.8371870613098145
+generated sequence: What you dake mauch murrave and seather it shall be at nown and reat comselfoy
+Pay,
+What his now, he 
+
+iter:7799/20000 loss:1.855825390815735
+generated sequence: WIRRY I'I and hething gook tright
+Tills your tow''d reaciud.
+
+CORUSLO:
+Why faciouch querty: I weer ma
+
+iter:7899/20000 loss:1.838682371377945
+generated sequence: Whyst are biget in? thing Clack peace's war with precer wardiog beather have serveringm?
+Thesse.
+
+DUK
+
+iter:7999/20000 loss:1.8662904703617096
+generated sequence: WINGRRTTUS:
+I woll olls Have in hise himasing.
+
+No, Sailase tancond to do an it dusst to thait,
+And p
+
+iter:8099/20000 loss:1.8418582332134248
+generated sequence: W:
+You shall just sently usout rut re expect dobiug whet al wile his towain:
+No firesy:
+Yes
+fause.
+
+I
+
+iter:8199/20000 loss:1.8600328850746155
+generated sequence: Where, jeart,
+So must lostalant. He plifts the art!
+
+PRAND:
+Why, the badkner I kim sleoshers!
+
+KATHAR
+
+iter:8299/20000 loss:1.8607084918022156
+generated sequence: What,
+I will no love that though, His reed,
+Base,
+Shall thou sibslaves so us. are firs
+Twimp, were fi
+
+iter:8399/20000 loss:1.8015461909770965
+generated sequence: WARDALUS:
+Tellon knoble a do not thy goots!
+
+ISABELO:
+Glacusenely a gade'd; and?
+
+ISAMES:
+Gad! be the
+
+iter:8499/20000 loss:1.850023329257965
+generated sequence: WoRd Marked that is to he it deed unfacher for upon me, as with nothed was the pepcle:
+For help you h
+
+iter:8599/20000 loss:1.8421218287944794
+generated sequence: Whycus are of it is by this hoilds, and ho suest on queequith, wencal:
+Too
+Lordh:
+in more Wele you; f
+
+iter:8699/20000 loss:1.8662313520908356
+generated sequence: WARD:
+We gays an itchere that I leas ince, and this really?
+
+PAREIVA:
+I to nother's yof as leepleth?
+
+
+iter:8799/20000 loss:1.8676774132251739
+generated sequence: Why! O, miningant how yee
+With of lot my livof like bouncle fain?
+
+MONTES:
+Mught we dratn affock ny e
+
+iter:8899/20000 loss:1.8499306964874267
+generated sequence: Wore a glabsettemm ind and themes for fain terts;
+Hrue his sut, and Richating llace lle; would or umb
+
+iter:8999/20000 loss:1.8251637852191924
+generated sequence: W:
+And I a compived,
+You wore see lore.
+
+VIFFar.
+If thy vist,
+Meinf,:--
+
+EDWAN:
+Howh thinks.
+
+HENRY V
+
+iter:9099/20000 loss:1.8386597681045531
+generated sequence: Whoss, lidies do thy boutce conllellinius,
+Who brich come erese prefy
+Jutow,
+Hew let noe's mast. Will
+
+iter:9199/20000 loss:1.8557956147193908
+generated sequence: Wio, a allse our laves.
+
+Gacome;
+I sillow thy leath, your five we say
+Fly good a comely yel wiave tha
+
+iter:9299/20000 loss:1.8319081139564515
+generated sequence: Wers k tham thy maidads, chers
+Thing would all poward;
+Thou have as it stilimaning canst of young;
+Th
+
+iter:9399/20000 loss:1.8143624007701873
+generated sequence: WYRANTIO:
+Grught as eem in that farly you ughand sight lied,
+Kith mey.
+Sivilffacaid talesmugh think f
+
+iter:9499/20000 loss:1.8048972332477569
+generated sequence: We:
+Breace guodiet:
+Sicksy rolaston'r I so, our sheizy in I kild: Swere so signiour caery; my love th
+
+iter:9599/20000 loss:1.815588699579239
+generated sequence: W:
+Grath way, al; leilk,
+And ladge bese, and yee thank anrerien well ray,'s; gits, lialy cannot you a
+
+iter:9699/20000 loss:1.8764131963253021
+generated sequence: Werd and he was in arn trefure
+sperpusselloor me;
+Or I welw yet evengur-mallat is Khore good in
+diage
+
+iter:9799/20000 loss:1.8301194107532501
+generated sequence: Word, Egresmen good heave it still puibuess,
+Harnices hear-hre wead qeet My fluchn her falther in and
+
+iter:9899/20000 loss:1.8591250801086425
+generated sequence: Wemet'd there, teMay, yoursety youx unther.
+
+AUTORYVUS:
+Masher, thou deaths,
+And prence?
+
+GLOUCESTAR:
+
+iter:9999/20000 loss:1.8220320129394532
+generated sequence: WINh Madchamchly meref so boll deather?
+
+Provos;
+A
+WiRD IVINCE:
+Whilg for's what shald!
+
+MIRTRAS:
+O c
+
+iter:10099/20000 loss:1.8151918566226959
+generated sequence: Wel, an' poin, and in the eace, I disty them athee, E
+Coperence, if thee, is thou Lar' moinger of toe
+
+iter:10199/20000 loss:1.8100227224826813
+generated sequence: We for syepors then preat'sh intend geace
+Wertand in make
+Bre to tenow toge of torch'dly so thou thys
+
+iter:10299/20000 loss:1.8248633754253387
+generated sequence: Weld frien.
+
+JULIENCE:
+Whocomnce bece arnit.
+I best panit, forthad: pury faning, to soar unders of th
+
+iter:10399/20000 loss:1.8536480534076691
+generated sequence: Weld.
+
+MINGRUCESTER:
+For,
+So it is uncomes; were,
+Wakes at and Were fey this grain, thought, to thear
+
+iter:10499/20000 loss:1.8129280316829681
+generated sequence: Will not man we,:
+Now.
+
+MIRTRUSHARD HIO:
+What thy sen smath a bet
+Anon! I may thus had ladin
+Tell on 
+
+iter:10599/20000 loss:1.8103227865695954
+generated sequence: Welow buy casting,
+Haste pallated at to funger prief. you satoyess,
+Far weepustick
+stailt,
+Well was w
+
+iter:10699/20000 loss:1.8580978465080262
+generated sequence: WIR: Gome thou and the say, have you?
+S KING RIST:
+I speat Sleeder; fill heir me sure, stear your me.
+
+iter:10799/20000 loss:1.8614257538318635
+generated sequence: Whof justech sue father.
+
+KING LELIO:
+Bat fentellime that with us them friacess epereasion lirstibes!
+
+iter:10899/20000 loss:1.8352132892608644
+generated sequence: Ward, now:
+You say,
+And goade-hapram:
+Fajtent, War ing' it fere sever redred am ronigs?
+Soon. Which a
+
+iter:10999/20000 loss:1.8265839886665345
+generated sequence: Waker froth,-wall,
+Weands
+Frowny.
+As belisted to this that's gives
+Crown me say my forith the thow; h
+
+iter:11099/20000 loss:1.8396932578086853
+generated sequence: Win:
+Munk any his ouratiegs: my Ead dounce thou revin oul old a be bus
+You, my foes to some hame wilt
+
+iter:11199/20000 loss:1.8086082983016967
+generated sequence: Who'd the Lord
+Grown the live ellay him:
+Ha facts end lik! you dimsh the restany his hem: my Butcalle
+
+iter:11299/20000 loss:1.879347333908081
+generated sequence: Wsims;
+And rescet good; I shall by thouses weat I bains, sicks a rever unbaseever,
+What my draw'd of 
+
+iter:11399/20000 loss:1.8367687475681305
+generated sequence: Wh:
+Thich'' marry thousen Cow, to brtathed good,
+And there im hintuy, alo, no haunater.
+
+DUKE VINCENT
+
+iter:11499/20000 loss:1.8411890602111816
+generated sequence: Why, her your grace, longt.
+O land caus of, and sinasts for, my his soantled swoat, have temand:
+Myre
+
+iter:11599/20000 loss:1.8103123354911803
+generated sequence: W:
+Thou are here bad look no to at is will than the wife:
+But ir arat Katioly and
+Citizec;
+Nay the li
+
+iter:11699/20000 loss:1.8287640357017516
+generated sequence: What wince, than to reem Sand Lif, you do have to ow when has wate
+To hen thour fenroing ond Com id t
+
+iter:11799/20000 loss:1.8087321615219116
+generated sequence: WARk MARTORISBARTARIZEL:
+Uory sack as stoy,
+Coursh, that we dreft:
+But carence,
+But, whice my lord.
+
+
+
+iter:11899/20000 loss:1.8469632601737975
+generated sequence: WhRCUSIO:
+You Jorn the carsk lord undorgest thou lord, thy soirs in is a charrot a givieds. Ason row
+
+
+iter:11999/20000 loss:1.8288153040409088
+generated sequence: WINd:
+What repy, thoush of these did sidp strend trous commorr:
+And fronsts live rencill crivisin to 
+
+iter:12099/20000 loss:1.819608314037323
+generated sequence: WIRD IIIU EDIZABEY:
+No sicust, I cemind an up yis not fewslips, Kealnot enjoves themell lord:
+Wh leep
+
+iter:12199/20000 loss:1.8009991812705994
+generated sequence: Wes you; as not sir gree your wilustone, proman, he esalk'd
+'I't, heaven,
+Which enders
+And wellon; my
+
+iter:12299/20000 loss:1.8183410120010377
+generated sequence: What:
+And that ferirn;
+Tho, rays id,
+But and crombldst that is that wick-streght,
+Nor his not demets.
+
+iter:12399/20000 loss:1.8201295256614685
+generated sequence: What valier,
+Yet
+And a kink you a ling hid a fails be the dity and I with that, I sontwashe mea,
+Pers
+
+iter:12499/20000 loss:1.8402048027515412
+generated sequence: Which cantul, would
+Be; comes then slee?
+
+TERKENEM:
+Thy? so resedr had to dence benced for forly bune
+
+iter:12599/20000 loss:1.826756284236908
+generated sequence: WiON outhin, carrer't whee, that vewist disbacy presalt horself the thitees 'tis some an'.
+
+GLOUCENTE
+
+iter:12699/20000 loss:1.8206095838546752
+generated sequence: War-were doin my venisst hand, and hey, he have,
+Take I now; my lord:
+Ot, my dlee lutted worwast: 'Wa
+
+iter:12799/20000 loss:1.7828744316101075
+generated sequence: Wit her pir of that haplodain
+Of there no spargor ade re you to? woresath pie the deather to plain hi
+
+iter:12899/20000 loss:1.8184836578369141
+generated sequence: WaRD:
+Whey, be jown morrand with fantus
+on met thee Comfy and yac and I have be confard her droie, be
+
+iter:12999/20000 loss:1.8108458316326141
+generated sequence: Weld a torther:
+Whis him angels, gand why dang. Your graceds;
+'Twolf, not to fill a may reading's:
+Ya
+
+iter:13099/20000 loss:1.8420295786857606
+generated sequence: What meanesle; me sirciips you hunld,
+And were which of ere the make it then thore thou dead coup plo
+
+iter:13199/20000 loss:1.8121658492088317
+generated sequence: Willok to Rockins. Who anamenws:
+I carpow'st so how To hash do rievy sined?
+
+ELBORIAN:
+No deeplaces. 
+
+iter:13299/20000 loss:1.8342051792144776
+generated sequence: WhY bidior and it we in hast from namring father, I am,
+lown:
+He s yin him collor thee and so for kno
+
+iter:13399/20000 loss:1.7977008211612702
+generated sequence: WI promis lay tuliks.
+
+MARTLO:
+Eoble a pupree to s, be to be imbress
+Thour:
+I putizetises I op re.
+I 
+
+iter:13499/20000 loss:1.7803444945812226
+generated sequence: Why spoke?
+Foar an thine by threa villo in that my fath our rage be wey it, sit.
+
+BUCKINGHAM:
+Yevenor
+
+iter:13599/20000 loss:1.8446109747886659
+generated sequence: What drieemt hild thy twold, Of these very have accureting it shors,
+Till train with to the.
+
+ROSPERA
+
+iter:13699/20000 loss:1.8370376360416412
+generated sequence: What to must
+But now ond to king-geter's then mon.
+
+BRUTUS:
+ET, and and buth. Dultech.
+
+PIOLANUS:
+Par
+
+iter:13799/20000 loss:1.8150959265232087
+generated sequence: WARD LAUSENCA:
+Lain you shapressering osted; have, which so brother in thinest;
+But meany od thou wit
+
+iter:13899/20000 loss:1.8307501685619354
+generated sequence: Win outs night where pracest to move mearne.
+
+PAUTIN:
+I wno horume.
+
+MENAENER:
+A dambienly; I wontant
+
+iter:13999/20000 loss:1.8151152312755585
+generated sequence: Well I'll be begd!
+Right, Cantand' beward:
+To leace, it be
+Is,
+Seiz, which ther behatle, so inderth?
+
+
+iter:14099/20000 loss:1.8043026101589204
+generated sequence: Why rid cagst so for concamed all, and beoth, not not theace Rome, Swond the lorderofsing for the own
+
+iter:14199/20000 loss:1.821608736515045
+generated sequence: Welss.
+
+Sholl I that thou iter'd,
+Ut hearfeles firthy as alfoper.
+
+QUEENIUS:
+Well dese, it she whis I
+
+iter:14299/20000 loss:1.8015301036834717
+generated sequence: W:
+foimed
+Oe the would o' liest.
+
+Seryon!
+Exeorn spencementer.
+
+PETSBO:
+Why Tray secce, I'll the brfu
+
+iter:14399/20000 loss:1.8142169559001922
+generated sequence: W say ow he cneentge, but other stold! for,onats; and blood, thrue of chould, with ay rese is, beatie
+
+iter:14499/20000 loss:1.7823717761039735
+generated sequence: WARKINA:
+Whiciffissmeth the comes, name.
+
+Firt Hit, threishoy, you meth mine have hear in iewaly
+at, 
+
+iter:14599/20000 loss:1.837926563024521
+generated sequence: War, fanden, appock of the batode any retume word,
+My long,
+And say an, cramly suntrerearm faidy of r
+
+iter:14699/20000 loss:1.792446689605713
+generated sequence: WISchiece;
+Unoilalfer's
+nor puop curn'd this writion.
+
+CUMIONE:
+Tou hour munme, nobeed shall's not mi
+
+iter:14799/20000 loss:1.84016641497612
+generated sequence: W:
+That whom from my lords
+wordd be my ciens: forciou!
+
+Secraid.
+
+JULIET:
+Situco fordertry me
+To my s
+
+iter:14899/20000 loss:1.8218023812770843
+generated sequence: Weren.
+
+GONEN:
+Who sor,
+Whinkt the hapeting the Ventles.
+Woo.
+For-wak,
+With we hoptecters, look a RIN
+
+iter:14999/20000 loss:1.7805526411533357
+generated sequence: WARKINA:
+I'llf.
+
+BENVOLAO:
+GOize Herrdetlement, me: if comes thee, my pring
+Ayen some me; both a hrug
+
+iter:15099/20000 loss:1.8387245810031891
+generated sequence: Who maight.
+
+MERCUTIUS:
+You shate, make
+not herse, let this voo let their counglod hatr, let'd this I
+
+iter:15199/20000 loss:1.84830934882164
+generated sequence: Wing to jeaitur.
+
+KING HENRY VI:
+For their what to be and swill!
+
+VOLUMNINT:
+What you such tyad and I
+
+iter:15299/20000 loss:1.7924806654453278
+generated sequence: Waten then leave thought yhal virnard,
+And by cloued:
+Is nther,
+Your lord to your hope the daun ofy t
+
+iter:15399/20000 loss:1.8048206186294555
+generated sequence: Wish sill been.
+
+LUCERLAND:
+Stend wind, by make agaid: as same
+a beast father'd dinench nde wit refor
+
+iter:15499/20000 loss:1.851177030801773
+generated sequence: Wheld,
+My harghabred,
+Having their shall you imelinsting suchind
+Which wore arawalladurs my vengoty t
+
+iter:15599/20000 loss:1.815058377981186
+generated sequence: We are should neadio not beon a swound we caltiou!
+Much misel the stan of the ose,
+There weat undle n
+
+iter:15699/20000 loss:1.7951309609413146
+generated sequence: WIRG LENTIS:
+Iw a lord.
+
+PETRUCHIO:
+And discove,
+'ndorh
+You reart.
+And sake'd all till yet
+In mast kn
+
+iter:15799/20000 loss:1.7816386342048645
+generated sequence: Whow the will the that gord and time. Thos pewd.
+
+MENENIUS:
+A lirs,
+Seas steect: what you digour mear
+
+iter:15899/20000 loss:1.8440874755382537
+generated sequence: Wate to o knolawity, wargal, and yought; but sulles
+Of deapingess,
+Abadeant faith:
+Themen liffect ear
+
+iter:15999/20000 loss:1.8102406179904937
+generated sequence: Warn, not to with Hervax't try have You
+he, as hinist ungood?
+
+CARCIUN:
+But by ginct more my meont pa
+
+iter:16099/20000 loss:1.8119624578952789
+generated sequence: W;RWICANO:
+O have than? letword so gratt hism. aport! danly har That hand, I stances,
+Ie, that farth 
+
+iter:16199/20000 loss:1.8101911664009094
+generated sequence: Wn would and for that this threament:
+I shame it. I deretinest,
+Poth she's, the brother as soldom to 
+
+iter:16299/20000 loss:1.7882622104883195
+generated sequence: WIRWI:
+Buty ween tractinith,
+Which was to as'unon twoll this.
+
+JSlvid:
+
+CARTINA:
+I wilt. I jlood.
+
+KI
+
+iter:16399/20000 loss:1.8701395881175995
+generated sequence: W oothurly handod,
+Why:
+We bist shee, any beheited rulelter, and good good him for his chanded. What 
+
+iter:16499/20000 loss:1.799644446372986
+generated sequence: Will and to them sparning somelen tost alonged, no look for
+upon olds play enethe.
+
+CORIOLANUS:
+O, mi
+
+iter:16599/20000 loss:1.7976033091545105
+generated sequence: Why, in Rumbarlutceen amen,
+My shase;
+Where seeve made well.
+
+GREMII:
+Wht neer lend, you shice
+The we
+
+iter:16699/20000 loss:1.7928874504566192
+generated sequence: What diles
+afty's my hous
+He flare my king
+He is, fathy bather 't be you, tempage
+A dost rade to a ma
+
+iter:16799/20000 loss:1.7829521095752716
+generated sequence: Waith
+offer,':
+Of rayes, in quit; it prerce may'ds, hele mond and a kill we good his iulf smonagre;
+T
+
+iter:16899/20000 loss:1.8186964213848114
+generated sequence: Why, 'tis espower.
+
+GLOUCESTIO:
+Herce way ofsice in as a hopel swerrove cloods to prodous mines deivi
+
+iter:16999/20000 loss:1.78867902636528
+generated sequence: WiSone, thee; ake,
+Thou didg boy,
+Of sive, seave thougdiess isst
+Teave, thelieastiouse's of cears is 
+
+iter:17099/20000 loss:1.7798778128623962
+generated sequence: Whither my more
+my noming it of hoves of hand.
+
+LEONTES:
+It of their boans jottenced etcingnise, I ha
+
+iter:17199/20000 loss:1.8562310349941253
+generated sequence: Why licg'
+Tnenie me couse baices
+Howhreps'd
+
+God: faice From Every. I would love of thy halde, in he 
+
+iter:17299/20000 loss:1.8052739775180817
+generated sequence: Why and weep this wets.
+I ney.
+
+COMIOLET:
+'CHutsestery; if haghtly thy foling.
+
+HERMIONE:
+Never so: s
+
+iter:17399/20000 loss:1.7675264298915863
+generated sequence: Wen?
+
+ELUTUS:
+Whtrous hat weals a' must than e'me to be this amwel
+Willo to than stall disce
+Tewound 
+
+iter:17499/20000 loss:1.806238566637039
+generated sequence: WARD IVININ:
+O?
+
+YORK:
+Be strilg natiep, statier
+Were chould, these frove pewsen frwern to my metlobs
+
+iter:17599/20000 loss:1.825804398059845
+generated sequence: WiRD
+There;
+And time of a cammick?
+But, enclan the prile Wast
+Turstlea, come come a pet trimpluck a m
+
+iter:17699/20000 loss:1.834488537311554
+generated sequence: Was where ware from my stan are well him?
+
+NORTHUMBELLLA:
+To serven agold with me, will entregoe, the
+
+iter:17799/20000 loss:1.8463568544387818
+generated sequence: Wing that how honours
+our hade, ander of their the knarendvll'd swornenderotiueld'm.
+
+ROMEO:
+Not keor
+
+iter:17899/20000 loss:1.7658288514614104
+generated sequence: WARCIO:
+On Withoud fear.
+
+JULIES:
+'Tyen that with me that fair't
+And poor Lord, I to mila;
+It gup! I 
+
+iter:17999/20000 loss:1.8102456998825074
+generated sequence: Wing and trecking. Tut had doen,
+Bohe for the neady. Say the dishite;
+The fathem.
+
+TiSs IS:
+Trepoue
+T
+
+iter:18099/20000 loss:1.8217316281795501
+generated sequence: WiRD I mad to maken:
+Will nut itsent thou to can cit thus prire
+I am wan crows, the book, come.
+
+OXFO
+
+iter:18199/20000 loss:1.8055554842948913
+generated sequence: Wh Grum I, mohch didring, thou you, if a driols, that I is cur you you, meep the, Your put for at I'l
+
+iter:18299/20000 loss:1.8091968548297883
+generated sequence: WiCiO:
+Bep awour compeabs unfered hive she, is she vearlom?
+What, my twisturrser, sir.
+
+CLARENCE:
+
+FR
+
+iter:18399/20000 loss:1.8055775225162507
+generated sequence: Which You with browis Sencenin the marrther make say kel'n
+And never, om humbleamed, 'polior'd. But I
+
+iter:18499/20000 loss:1.843874899148941
+generated sequence: We but not for thank!
+
+BIONDELLAND:
+Let talk to and then drup thou as them fors
+Yot the fill.
+
+QUEEN
+
+
+iter:18599/20000 loss:1.8275981891155242
+generated sequence: Why denter fors of Hast
+For touk you, I his falok I candst bowh, lest no stows'd aGrist he will they 
+
+iter:18699/20000 loss:1.8037470412254333
+generated sequence: Which begry, are for norgo.
+
+SICINGBAUD:
+Find To lutch spof's are play and the norther, bear. Gos, I 
+
+iter:18799/20000 loss:1.78358992934227
+generated sequence: WARD:
+O dead thee,
+Take belords a kingly stronk fears,
+Time, I dead,
+My timated?
+
+DUCKINIUS:
+But wo w
+
+iter:18899/20000 loss:1.7928754091262817
+generated sequence: Why.
+Grears greds;
+And royds.
+
+BUCKINGORO:
+O tof, as not when gend all this ne dartit; backing time t
+
+iter:18999/20000 loss:1.7976279890537261
+generated sequence: WARD IV:
+And he working.
+Want, the fearirgsted, I sure agmess,
+Wh treviled;. Ye!
+Lect as gentlenkly w
+
+iter:19099/20000 loss:1.811177159547806
+generated sequence: W unding exerve wast!
+
+SLY:
+They e grable of rank trarm, and fauld, un!
+
+BIONDELLO:
+What, shence: apo
+
+iter:19199/20000 loss:1.8016046273708344
+generated sequence: Why, fird soul, hard,
+Continks,
+To call, so deades, Wills angerunt is deceoush'd whelr bethe leave.
+
+
+
+iter:19299/20000 loss:1.7571495354175568
+generated sequence: WARUCESTEN:
+How crows ween mostnry, thy sour. sorring the hone you on diss of are to bere! and ourd.
+
+
+iter:19399/20000 loss:1.7724682295322418
+generated sequence: Wals.
+
+DUKE VINCENCIO:
+And beangespioned, entle, Ince
+Days me
+There meing a bed to the qustultair! a 
+
+iter:19499/20000 loss:1.7668687045574187
+generated sequence: What'll, say mey there?
+
+ESCALUS:
+If thou knowner in thereande?
+
+AUTIST:
+I ner and
+leis pormaning the
+
+iter:19599/20000 loss:1.7689933955669404
+generated sequence: We cawned.
+
+TRANDA:
+Thingle for is Rimanstur truct from his.
+
+LUCIO:
+Theyen becanounts too, or.
+
+BENV
+
+iter:19699/20000 loss:1.798764524459839
+generated sequence: Why, mine indearerupning to south,
+But, dinvolys, untares and the wie handonates whinconing with sham
+
+iter:19799/20000 loss:1.7738633418083192
+generated sequence: Whilg whiliger; shale agases it and cugst
+We eirse the kife some suefsedst savesbent, prisceech of si
+
+iter:19899/20000 loss:1.78220609664917
+generated sequence: Was seever!
+
+TLANIUS:
+Bill's enrims,
+Whice ask his dive your benges.
+
+PETRUCHIO:
+Now my enill; and ch
+
+iter:19999/20000 loss:1.7905663347244263
+generated sequence: Whore which the hidns werman;
+But is do not to is cannot hasp say a diase, I go; good thee sir you pa
+
+
+    \end{Verbatim}
+
+    \hypertarget{training-loss-curve}{%
+\paragraph{Training Loss Curve}\label{training-loss-curve}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{all\PYZus{}losses}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{evaluation-a-sample-of-generated-sequence}{%
+\paragraph{Evaluation: A Sample of Generated
+Sequence}\label{evaluation-a-sample-of-generated-sequence}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{eval\PYZus{}step}\PY{p}{(}\PY{n}{net}\PY{p}{,} \PY{n}{predicted\PYZus{}len}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Why, God you was it to havine: you
+boep;
+Yet thee, and madied.
+
+CAMTINGO:
+So hand have mose to
+assless many for losh
+Unot ese ne't a was hath most and in his his trust our hidrage'?
+
+NSCLINGA:
+I mode behry,
+And my notisy his tries bid sheaventy,
+Sin well puces, lant Tencesm, enwostonself shall,
+I misting stranl a was which and sir his sresurns, so, shrves
+I, wight I have sce:
+Grom tave, even that's, tur.
+
+LADY ANNE:
+A trucilatee, my lord? Mire and mines
+ef done:
+Wheird--
+
+USdIES:
+Drys, enjuystys
+Doyes, no!
+
+JULIELINGS:
+O do havess lies ones as heads, and sodesesched!
+
+ISABELLO:
+Nay! Carsean,
+bo
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
